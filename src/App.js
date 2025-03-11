@@ -1,22 +1,48 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header.jsx";
-import Home from "./pages/Home.jsx";
-import ProductPage from "./pages/ProductPage.jsx";
-import CartPage from "./pages/CartPage.jsx";
-import "./styles/App.css";
+
+import React, { useState } from 'react';
+import ProductList from './ProductList.js';
+import './App.css';
+import AboutUs from './AboutUs.js';
 
 function App() {
+  
+  const [showProductList, setShowProductList] = useState(false);
+
+  const handleGetStartedClick = () => {
+    setShowProductList(true);
+  };
+
+  const handleHomeClick = () => {
+    setShowProductList(false);
+  };
+
   return (
-    <div className="App">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<ProductPage />} />
-        <Route path="/cart" element={<CartPage />} />
-      </Routes>
+    <div className="app-container">
+      <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
+        <div className="background-image"></div>
+        <div className="content">
+         <div className="landing_content">
+         <h1>Welcome To Paradise Nursery</h1>
+          <div className="divider"></div>
+          <p>Where Green Meets Serenity</p>
+         
+          <button className="get-started-button" onClick={handleGetStartedClick}>
+            Get Started
+          </button>
+         </div>
+          <div className="aboutus_container">
+          <AboutUs/>
+          </div>
+          </div>
+
+      </div>
+      <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
+        <ProductList onHomeClick={handleHomeClick}/>
+      </div>
     </div>
   );
 }
 
 export default App;
+
+
