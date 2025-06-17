@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import './ProductList.css'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addItem } from './CartSlice';
+import './ProductList.css';
 import CartItem from './CartItem';
+
 function ProductList({ onHomeClick }) {
+    const dispatch = useDispatch();
     const [showCart, setShowCart] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
     const [disabledButtons, setDisabledButtons] = useState({});
     const [showPlants, setShowPlants] = useState(false);
+
     const handleAddToCart = (plant) => {
-        setCartItems([...cartItems, plant]);
+        dispatch(addItem(plant));
         setDisabledButtons({ ...disabledButtons, [plant.name]: true });
     };
     const plantsArray = [
@@ -223,7 +227,7 @@ function ProductList({ onHomeClick }) {
         padding: '15px',
         display: 'flex',
         justifyContent: 'space-between',
-        alignIems: 'center',
+        alignItems: 'center',
         fontSize: '20px',
     }
     const styleObjUl = {
